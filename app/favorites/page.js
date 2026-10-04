@@ -3,10 +3,10 @@
 import UserCard from "@/components/UserCard";
 import { Heart } from "lucide-react";
 
-import { useUser } from "@/context/UserContext";
+import { useFavorite } from "@/context/FavoriteContext";
 
 export default function FavoritesPage() {
-  const { favorites } = useUser();
+  const { favorites } = useFavorite();
 
   return (
     <section className="relative">
@@ -29,6 +29,7 @@ export default function FavoritesPage() {
           <>
             <div className="mt-10 flex items-center gap-2 text-sm text-muted-foreground">
               <Heart className="size-4" />
+
               <span>
                 {favorites.length}{" "}
                 {favorites.length === 1 ? "user" : "users"} saved

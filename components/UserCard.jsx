@@ -9,10 +9,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 
-import { useUser } from "@/context/UserContext";
+import { useFavorite } from "@/context/FavoriteContext";
 
 export default function UserCard({ user }) {
-  const { addFavorite, removeFavorite, isFavorite } = useUser();
+  const { addFavorite, removeFavorite, isFavorite } = useFavorite();
 
   const favorite = isFavorite(user.id);
 

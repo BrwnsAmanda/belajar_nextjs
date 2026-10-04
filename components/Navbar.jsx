@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+
 import { useUser } from "@/context/UserContext";
+import { useFavorite } from "@/context/FavoriteContext";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -19,7 +21,9 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { name, submitted, favorites } = useUser();
+
+  const { name, submitted } = useUser();
+  const { favorites } = useFavorite();
 
   return (
     <header className="sticky top-4 z-50 mx-auto w-full max-w-4xl px-4">

@@ -1,17 +1,29 @@
 "use client";
 
 import { Mail, MapPin, MessageCircle } from "lucide-react";
-
 import { useUser } from "@/context/UserContext";
+import { submitContactForm } from "./actions";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 
 const contactInfo = [
-  { icon: Mail, label: "Email", value: "hello@mywebsite.com" },
-  { icon: MapPin, label: "Location", value: "Jakarta, Indonesia" },
-  { icon: MessageCircle, label: "Response time", value: "Within 1-2 days" },
+  {
+    icon: Mail,
+    label: "Email",
+    value: "hello@mywebsite.com",
+  },
+  {
+    icon: MapPin,
+    label: "Location",
+    value: "Jakarta, Indonesia",
+  },
+  {
+    icon: MessageCircle,
+    label: "Response time",
+    value: "Within 1-2 days",
+  },
 ];
 
 export default function Contact() {
@@ -26,16 +38,21 @@ export default function Contact() {
     setSubmitted,
   } = useUser();
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
-    console.log({
-      name,
-      email,
-      message,
-    });
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("message", message);
 
-    setSubmitted(true);
+    const result = await submitContactForm(formData);
+
+    if (result.success) {
+      setSubmitted(true);
+    } else {
+      alert(result.error);
+    }
   }
 
   return (
@@ -44,7 +61,9 @@ export default function Contact() {
 
       <div className="mx-auto max-w-6xl px-6 py-20">
         <div className="max-w-2xl">
-          <p className="text-sm font-semibold text-primary">Contact</p>
+          <p className="text-sm font-semibold text-primary">
+            Contact
+          </p>
 
           <h1 className="mt-2 text-4xl font-bold tracking-tight md:text-5xl">
             Let&apos;s talk
@@ -95,10 +114,7 @@ export default function Contact() {
                   </p>
                 </div>
               ) : (
-                <form
-                  onSubmit={handleSubmit}
-                  className="space-y-4"
-                >
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="grid gap-4 sm:grid-cols-2">
                     <div className="space-y-1.5">
                       <label

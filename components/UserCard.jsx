@@ -49,7 +49,7 @@ export default function UserCard({ user }) {
         </p>
 
         <p className="mt-1 text-sm text-muted-foreground">
-          {user.company.name}
+          {user.company?.name || "Tidak ada nama perusahaan"}
         </p>
 
         <div className="mt-4 flex gap-2">

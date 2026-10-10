@@ -23,9 +23,9 @@ export async function submitContactForm(formData) {
     createdAt: new Date().toISOString(),
   });
 
-  return {
-    success: true,
-  };
+  revalidatePath("/messages");
+
+  return { success: true };
 }
 
 export async function deleteMessageAction(id) {
@@ -44,7 +44,5 @@ export async function deleteMessageAction(id) {
 
   revalidatePath("/messages");
 
-  return {
-    success: true,
-  };
+  return { success: true };
 }
